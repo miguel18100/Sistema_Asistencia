@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS sena_asistencias CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE sena_asistencias;
+CREATE TABLE admins (id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(100) NOT NULL, usuario VARCHAR(60) NOT NULL UNIQUE, password_hash VARCHAR(255) NOT NULL, creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE fichas (id INT AUTO_INCREMENT PRIMARY KEY, numero VARCHAR(30) NOT NULL UNIQUE, programa VARCHAR(150) NOT NULL, jornada VARCHAR(30) NOT NULL DEFAULT 'Diurna', activa TINYINT(1) DEFAULT 1);
+CREATE TABLE aprendices (id INT AUTO_INCREMENT PRIMARY KEY, documento VARCHAR(30) NOT NULL UNIQUE, nombre VARCHAR(150) NOT NULL, email VARCHAR(120), ficha_id INT NULL, qr_token VARCHAR(64) NOT NULL UNIQUE, activo TINYINT(1) DEFAULT 1, creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(ficha_id) REFERENCES fichas(id) ON DELETE SET NULL);
+CREATE TABLE asistencias (id BIGINT AUTO_INCREMENT PRIMARY KEY, aprendiz_id INT NOT NULL, sesion_id INT NULL, fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, ip VARCHAR(45) NOT NULL, user_agent VARCHAR(255), estado_red ENUM('permitida','sospechosa','bloqueada') DEFAULT 'permitida', detalle_red VARCHAR(255), FOREIGN KEY(aprendiz_id) REFERENCES aprendices(id), INDEX(fecha_hora), UNIQUE KEY un_registro_sesion(aprendiz_id,sesion_id));
+CREATE TABLE sesiones_asistencia (id INT AUTO_INCREMENT PRIMARY KEY, token VARCHAR(64) NOT NULL UNIQUE, codigo VARCHAR(8) NOT NULL UNIQUE, ficha_id INT NULL, creada_por VARCHAR(100) NOT NULL, inicia_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, vence_en DATETIME NOT NULL, activa TINYINT(1) DEFAULT 1, FOREIGN KEY(ficha_id) REFERENCES fichas(id) ON DELETE SET NULL, INDEX(token), INDEX(codigo));
+-- La primera vez se usa la clave temporal en texto plano; el primer inicio la convierte automáticamente a hash seguro.
+INSERT INTO admins(nombre,usuario,password_hash) VALUES ('Administrador SENA','admin','TEMP:control1234');
+INSERT INTO fichas(numero,programa,jornada) VALUES ('2874561','Análisis y Desarrollo de Software','Diurna');
+INSERT INTO aprendices(documento,nombre,email,ficha_id,qr_token) VALUES ('1000000001','Aprendiz de Prueba','aprendiz@sena.edu.co',1,'SENA-DEMO-1000000001');

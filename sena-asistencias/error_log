@@ -1,0 +1,18 @@
+[25-Jul-2026 05:39:11 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/riz6yvumdjcg/public_html/sena-asistencias/config.php:7
+Stack trace:
+#0 /home/riz6yvumdjcg/public_html/sena-asistencias/config.php(7): PDO->__construct()
+#1 /home/riz6yvumdjcg/public_html/sena-asistencias/index.php(1): db()
+#2 {main}
+  thrown in /home/riz6yvumdjcg/public_html/sena-asistencias/config.php on line 7
+[25-Jul-2026 05:47:33 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/riz6yvumdjcg/public_html/sena-asistencias/config.php:7
+Stack trace:
+#0 /home/riz6yvumdjcg/public_html/sena-asistencias/config.php(7): PDO->__construct()
+#1 /home/riz6yvumdjcg/public_html/sena-asistencias/index.php(1): db()
+#2 {main}
+  thrown in /home/riz6yvumdjcg/public_html/sena-asistencias/config.php on line 7
+[25-Jul-2026 06:03:08 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1044] Access denied for user 'sena_asistencia'@'localhost' to database 'sena_asistencias' in /home/riz6yvumdjcg/public_html/sena-asistencias/config.php:23
+Stack trace:
+#0 /home/riz6yvumdjcg/public_html/sena-asistencias/config.php(23): PDO->__construct()
+#1 /home/riz6yvumdjcg/public_html/sena-asistencias/index.php(16): db()
+#2 {main}
+  thrown in /home/riz6yvumdjcg/public_html/sena-asistencias/config.php on line 23
